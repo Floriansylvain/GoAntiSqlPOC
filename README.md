@@ -2,6 +2,10 @@
 
 This project demonstrates a proof of concept for a database solution in Go that uses zero SQL or text-based query languages. Instead, it leverages [BadgerDB](https://github.com/dgraph-io/badger), a fast key-value store written in Go, to provide structured data storage with API-style access patterns.
 
+## Disclaimer ⚠️
+
+This is not clean architecture friendly yet.
+
 ## Core Features
 
 - **No SQL or Query Languages** - Pure programmatic data access through Go functions
