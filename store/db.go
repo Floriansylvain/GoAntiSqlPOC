@@ -8,14 +8,13 @@ import (
 )
 
 var (
-	db     *badger.DB
-	once   sync.Once
-	dbPath = "./data"
+	db   *badger.DB
+	once sync.Once
 )
 
 func InitDB() {
 	once.Do(func() {
-		opts := badger.DefaultOptions(dbPath).WithLogger(nil)
+		opts := badger.DefaultOptions("").WithInMemory(true).WithLogger(nil)
 		var err error
 		db, err = badger.Open(opts)
 		if err != nil {

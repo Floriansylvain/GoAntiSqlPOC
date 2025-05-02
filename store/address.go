@@ -57,3 +57,13 @@ func ListAddressesByUserID(userID string) ([]*Address, error) {
 	})
 	return addresses, err
 }
+
+func UpdateAddress(a *Address) error {
+	data, err := json.Marshal(a)
+	if err != nil {
+		return err
+	}
+	return GetDB().Update(func(txn *badger.Txn) error {
+		return txn.Set([]byte(addressPrefix+a.ID), data)
+	})
+}

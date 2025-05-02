@@ -25,7 +25,6 @@ var (
 )
 
 func CreateUser(name, email, password string) (*User, error) {
-	// Enforce uniqueness
 	if _, err := findUserIDByEmail(email); err == nil {
 		return nil, ErrEmailExists
 	}
@@ -112,4 +111,14 @@ func ListUsers() ([]*User, error) {
 		return nil
 	})
 	return users, err
+}
+
+func UpdateUser(u *User) error {
+	data, err := json.Marshal(u)
+	if err != nil {
+		return err
+	}
+	return GetDB().Update(func(txn *badger.Txn) error {
+		return txn.Set([]byte(userPrefix+u.ID), data)
+	})
 }
